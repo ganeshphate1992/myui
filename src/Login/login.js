@@ -39,7 +39,7 @@ export const Login = () => {
             <div className='row'>
                 <div className='offset-sm-5 col-sm-7'>
                     <button onClick={handleLogin} className='btn btn-primary me-3'>Login</button>
-                    <Link href="/register" >To Register</Link>
+                    <Link href="/Register" >To Register</Link>
                 </div>
             </div>
         </div>
