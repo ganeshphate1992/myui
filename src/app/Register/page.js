@@ -6,7 +6,11 @@ import Link from 'next/link'
 import { Input } from '@/InputControls/input'
 import { Select } from '@/InputControls/select'
 import { Textarea } from '@/InputControls/textarea'
-import { hanldeFiledValidation, handleFormValidation } from '@/Validations/appValidations'
+import { appStore } from '@/Store/appStore'
+import { toast } from 'react-toastify'
+import { hanldeFiledValidation, handleFormValidation, formReset} from '@/Validations/appValidations'
+import axios from 'axios'
+import { Api } from '@/Common/Api'
 
 const Register =()=>{
     const [inputControls, setInutControls] = useState(configration)
@@ -14,13 +18,31 @@ const Register =()=>{
     const fnChange = (eve) => {
         setInutControls(hanldeFiledValidation(eve, inputControls))
     }
-    const handleRegister = () => {
-        const [isFormInvalid, clonedInputControls, dataObj] = handleFormValidation(inputControls)
-        if (isFormInvalid) {
-            setInutControls(clonedInputControls)
-            return;
+    const handleRegister = async () => {
+        try {
+            const [isFormInvalid, clonedInputControls, dataObj] = handleFormValidation(inputControls)
+            if (isFormInvalid) {
+                setInutControls(clonedInputControls)
+                return;
+            }
+            
+            appStore.dispatch({ type: "LOADER", payload: true })
+            const res = await Api.fnSendPostReq("std/reg-std", { data: dataObj })
+            const { acknowledged, insertedId } = res?.data
+            if (acknowledged && insertedId) {
+                toast.success("Successfully Inserted")
+                debugger;
+                setInutControls(formReset(inputControls))
+            } else {
+                toast.error("Not Inserted, try again");
+            }
+
+        } catch (ex) {
+            console.error("register", ex)
+            toast.error("Somthing went wrong");
+        } finally {
+            appStore.dispatch({ type: "LOADER", payload: false })
         }
-         alert("sending requiest")
     }
     const prepareInputControls = (tag, obj) => {
         switch (tag) {
