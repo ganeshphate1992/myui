@@ -1,5 +1,6 @@
 import axios from "axios";
-const BASE_URL = 'http://localhost:2020/'; //process.env.BASE_URL  
+//const BASE_URL = 'http://localhost:2020/'; //process.env.BASE_URL  
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 //Getting undefine while get URL from .env file
 export class Api {
     static fnSendGetReq(url) {
