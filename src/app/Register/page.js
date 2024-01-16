@@ -9,7 +9,6 @@ import { Textarea } from '@/InputControls/textarea'
 import { appStore } from '@/Store/appStore'
 import { toast } from 'react-toastify'
 import { hanldeFiledValidation, handleFormValidation, formReset} from '@/Validations/appValidations'
-import axios from 'axios'
 import { Api } from '@/Common/Api'
 
 const Register =()=>{
