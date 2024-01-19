@@ -39,7 +39,7 @@ const Users = () => {
                         <TableRow>
                             {
                                 headers.map((val, ind) => {
-                                    return <TableCell key={`th${indexedDB}`} >{val}</TableCell>
+                                    return <TableCell key={`th${ind}`} >{val}</TableCell>
                                 })
                             }
                         </TableRow>
